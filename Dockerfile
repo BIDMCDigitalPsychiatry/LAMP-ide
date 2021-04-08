@@ -1,4 +1,4 @@
-FROM codercom/code-server:3.9.2
+FROM codercom/code-server:3.9.3
 USER root
 
 # Install Debian testing repository sources and Docker CLI
