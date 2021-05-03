@@ -7,14 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - id: repo_name
-        uses: ASzc/change-string-case-action@v1
-        with:
-          string: ${{ github.repository.name }}
       - uses: jerray/publish-docker-action@v1.0.3
         with:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-          repository: ${{ steps.repo_name.outputs.lowercase }}
+          repository: 'bidmcdigitalpsychiatry/lamp-ide'
           auto_tag: true
