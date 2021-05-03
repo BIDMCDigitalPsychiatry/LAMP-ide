@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  ide:
+    image: ghcr.io/bidmcdigitalpsychiatry/lamp-ide:vscode
+    environment:
+      DOCKER_USER: ${USERNAME}
+      DOCKER_HOME: /home/${USERNAME}
+      PASSWORD: ${PASSWORD}
+    volumes:
+      - /data:/home
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - public
+    deploy:
+      mode: replicated
+      labels:
+        traefik.enable: 'true'
+        traefik.http.routers.${DEV_ID}.entryPoints: 'websecure'
+        traefik.http.routers.${DEV_ID}.rule: 'Host(`${DEV_ID}.lamp.digital`)'
+        traefik.http.routers.${DEV_ID}.tls.certresolver: 'default'
+        traefik.http.services.${DEV_ID}.loadbalancer.server.port: 8080
+      placement:
+        constraints:
+          - node.hostname == node-02.lamp.digital
+networks:
+  public:
+    external: true

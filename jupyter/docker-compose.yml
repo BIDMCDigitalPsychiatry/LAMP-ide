@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  ide:
+    image: ghcr.io/bidmcdigitalpsychiatry/lamp-ide:jupyter
+    command: "start-notebook.sh --NotebookApp.token='${JUPYTER_PASSWORD}'"
+    environment:
+      NB_USER: '${JUPYTER_USERNAME}'
+      LAMP_ACCESS_KEY: '${LAMP_USERNAME}'
+      LAMP_SECRET_KEY: '${LAMP_PASSWORD}'
+      LAMP_SERVER_ADDRESS: 'api.lamp.digital'
+    volumes:
+      - /data:/home
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - public
+    deploy:
+      mode: replicated
+      labels:
+        traefik.enable: 'true'
+        traefik.http.routers.dev${IDE_NUMBER}.entryPoints: 'websecure'
+        traefik.http.routers.dev${IDE_NUMBER}.rule: 'Host(`dev${IDE_NUMBER}.lamp.digital`)'
+        traefik.http.routers.dev${IDE_NUMBER}.tls.certresolver: 'default'
+        traefik.http.services.dev${IDE_NUMBER}.loadbalancer.server.port: 8888
+      placement:
+        constraints:
+          - node.hostname == node-02.lamp.digital
+networks:
+  public:
+    external: true
