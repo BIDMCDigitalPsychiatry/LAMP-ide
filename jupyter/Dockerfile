@@ -11,7 +11,8 @@ ENV NB_UID=500 \
 RUN sudo apt-get update -y && sudo apt-get install -y jq ripgrep pandoc mongodb-clients && \
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && unzip -q /tmp/awscliv2.zip -d /tmp/ && sudo /tmp/aws/install && \
     wget -qO- "https://github.com/phiresky/ripgrep-all/releases/download/v0.9.6/ripgrep_all-v0.9.6-x86_64-unknown-linux-musl.tar.gz" | sudo tar -xvz -C /usr/local/bin/ --strip-components 1 --no-anchored --wildcards 'rga*' && \
-
+    wget -qO- https://get.docker.com/ | sh && \
+    
     pip install LAMP-core && \
     pip install fuzzywuzzy && \
     pip install python-levenshtein && \
@@ -20,12 +21,13 @@ RUN sudo apt-get update -y && sudo apt-get install -y jq ripgrep pandoc mongodb-
     pip install geopy && \
     pip install similaritymeasures && \
     pip install fastdtw && \
-
+doc
     pip install bash_kernel && python3 -m bash_kernel.install && \
     npm install -g tslab && tslab install && \
 
     pip install jupyterlab-lsp && \
     pip install 'python-language-server[all]' && \
+
     npm i -g bash-language-server && \
     npm i -g vscode-css-languageserver-bin && \
     npm i -g dockerfile-language-server-nodejs && \
@@ -41,7 +43,9 @@ RUN sudo apt-get update -y && sudo apt-get install -y jq ripgrep pandoc mongodb-
     pip install jupyterlab-code-snippets && \
     pip install ipylab && \
     pip install jupytext && \
-
+    pip install jupyterlab_latex && \
+    
+    jupyter labextension install @jupyterlab/latex && \
     jupyter labextension install jupyterlab_onedarkpro
     
 WORKDIR /home
