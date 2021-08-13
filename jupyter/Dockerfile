@@ -23,6 +23,7 @@ RUN sudo apt-get update -y && sudo apt-get install -y jq ripgrep pandoc mongodb-
     pip install fastdtw && \
     pip install altair && \
     pip install compress_pickle && \
+    pip install pymongo && \
     pip install bash_kernel && python3 -m bash_kernel.install && \
     npm install -g tslab && tslab install && \
 
