@@ -14,6 +14,8 @@ RUN sudo apt-get update -y && sudo apt-get install -y jq ripgrep pandoc mongodb-
     wget -qO- https://get.docker.com/ | sh && \
     
     pip install LAMP-core && \
+    pip install pymongo && \
+    pip install LAMP-cortex && \
     pip install fuzzywuzzy && \
     pip install python-levenshtein && \
     pip install pytz && \
