@@ -47,6 +47,7 @@ RUN sudo apt-get update -y && sudo apt-get install -y jq ripgrep pandoc mongodb-
     pip install jupyterlab-code-snippets && \
     pip install ipylab && \
     pip install jupytext && \
+    pip install 'nbclassic>=0.2.8' && \
 
     jupyter labextension install jupyterlab_onedarkpro
     
