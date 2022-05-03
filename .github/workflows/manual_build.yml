@@ -1,0 +1,29 @@
+on: 
+  workflow_dispatch:
+    inputs:
+      buildVersion:
+        description: 'Build On'     
+        required: true
+        default: 'jupyter' 
+        type: choice
+        options:
+        - jupyter
+        - vscode
+
+jobs:
+  manual-build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Manual build triggered - $BUILDVERSION"
+      - uses: actions/checkout@v1
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v2
+        with:
+          context: ${{ github.event.inputs.buildVersion }}
+          push: true
+          tags: ghcr.io/bidmcdigitalpsychiatry/lamp-ide:${{ github.event.inputs.buildVersion }}
