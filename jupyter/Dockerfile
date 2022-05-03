@@ -16,6 +16,7 @@ RUN sudo apt-get update -y && sudo apt-get install -y jq ripgrep pandoc mongodb-
     pip install LAMP-core && \
     pip install pymongo && \
     pip install LAMP-cortex && \
+    pip install coverage && \
     pip install fuzzywuzzy && \
     pip install python-levenshtein && \
     pip install pytz && \
